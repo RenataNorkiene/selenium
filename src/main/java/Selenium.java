@@ -5,11 +5,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Selenium {
     public static final String SEARCH_BUTTON_BY_XPATH = "//*[@id=\"sb_form_go\"]";
-    private static WebDriver browser; //susikureme globalu kintamaji
+    public static WebDriver browser; //susikureme globalu kintamaji
 
     public static void main(String[] args) { //eiluciu masyvas args - issitraukti is vartotojo parametrus; main
         System.out.println("Selenium + maven + junit");
 //        setUp();
+        //logIn();
 //        search("Baranauskas");
         //getResults();
 //        close();
@@ -20,7 +21,24 @@ public class Selenium {
         System.setProperty("webdriver.chrome.driver", "webDrivers/chromedriver91.exe");
 
         browser = new ChromeDriver();
-        browser.get("http://www.bing.com");
+        browser.get("https://www.linkedin.com/login/");
+        browser.manage().window().maximize();
+        browser.manage().deleteAllCookies();
+    }
+
+    public static void signUp() {
+        WebElement username = browser.findElement(By.id("username"));
+        WebElement password = browser.findElement(By.id("password"));
+        WebElement signUp = browser.findElement(By.xpath("//button[text()='Sign in']"));
+        username.sendKeys("email@email.com");
+        password.sendKeys("exampleAboutSelenium123");
+        JavascriptExecutor executor = (JavascriptExecutor) browser;
+        executor.executeScript("arguments[0].click();", signUp); // elementas kuri norime kad paspaustu
+
+
+
+
+
     }
 
 
@@ -34,7 +52,7 @@ public class Selenium {
 //
         WebElement ele = browser.findElement(By.xpath(SEARCH_BUTTON_BY_XPATH));
         JavascriptExecutor executor = (JavascriptExecutor) browser;
-        executor.executeScript("arguments[0].click();", ele); //ele yra tas lelemntas kuri norime kaspaspaustu
+        executor.executeScript("arguments[0].click();", ele); //ele yra tas lelemntas kuri norime kad paspaustu
 
 
 //        WebDriverWait wait2 = new WebDriverWait(browser, 10);
